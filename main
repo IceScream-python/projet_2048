@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+//temporaire
+void afficher(int* grille)
+{
+    for (int i=0;i<16;i++)
+    {
+        printf("%d ",grille[i]);
+        if (i % 4 == 3)
+        {
+            printf("\n");
+        }
+    }
+    printf("\n");
+}
+void fusion(int* grille,int indice1,int indice2)
+{
+    grille[indice1] = 2*grille[indice1];
+    grille[indice2] = 0;
+}
+
+void echange(int* grille,int indice1,int indice2)
+{
+    //met la valeur de l'indice2 dans indice1 puis met 0 à indice2
+    grille[indice1] = grille[indice2];
+    grille[indice2] = 0;
+}
+
+void mouvement_vers_droite(int* grille)
+{
+    for (int case1=0;case1<16;case1 += 4)
+    {
+    //fusion des tuiles de la ligne
+        for(int indice=case1+4;indice>case1+1;indice--)
+        {
+            if (grille[indice] == grille[indice-1] && grille[indice]!=0)
+            {
+                fusion(grille,indice,indice-1);
+            }
+        }
+    //deplacement des tuiles fusionnées
+        for(int indice=case1+4;indice>case1+1;indice--)
+        {
+            if (grille[indice]==0 && grille[indice-1]!=0)
+            {
+                echange(grille,indice,indice-1);
+            }
+        }
+    }
+}
+
+
+void init_grille(int* grille)
+{
+    int case1 = 0;
+    int case2 = 1;
+    for (int indice=0;indice<16;indice++)
+    {
+        if (indice==case1 || indice==case2)
+        {
+            int nombre = rand() % 4;
+            if (nombre <= 4)
+            {
+                nombre = 2;
+            } 
+            grille[indice] = nombre;
+        }
+        else
+        {
+           grille[indice] = 0; 
+        }
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    int* grille = (int *)malloc(sizeof(int)*16);
+    if (grille == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+    init_grille(grille);
+    afficher(grille);
+    mouvement_vers_droite(grille);
+    afficher(grille);
+    free(grille);
+    return 0;
+}
