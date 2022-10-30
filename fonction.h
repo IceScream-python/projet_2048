@@ -1,6 +1,6 @@
-/*Vérifie si la grille donnée comporte un 2048
- * Entrée : unn tableau d'entiers.
- * Sortie : 0 si la grille comporte un 2048, 1 sinon*/
+/*Vérifie si la grille donnée comporte un 2048 ou si plus aucun coup n'est possible
+ * Entrée : un tableau d'entiers.
+ * Sortie : 2 si la grille comporte un 2048, 0 si au moins un coup est possible sinon 1*/
 int victoire(int* tab);
 
 /*Compte le nombres de chiffres d'un nombre
@@ -26,14 +26,23 @@ void init_grille (int *grille);
  * Sortie : void */
 void rajoute_2(int* tab);
 
-void fusion (int *grille, int indice1, int indice2);
+/*Renvoie la grille après avoir effectué une rotation dans le sens des aiguilles d'une montre
+*Entrée : Un tableau
+*Sortie : void */
+void turn_grid(int* grille);
 
-void echange (int *grille, int indice1, int indice2);
+/*déplace toute les tuiles de la ligne començant par case1 vers la droite d'antant de cases que de cases vides présentes à leur droite.
+*Entrée : Un tableau, un entier
+*Sortie : void */
+void deplacement_droite(int* grille,int case1);
 
-int mouvement_vers_droite (int *grille);
+/*fait le déplacement et la fusion de toutes les tuiles de la grille vers la droite
+*Entrée : un tableau
+*Sortie : un void*/
+void mouvement_vers_droite (int *grille);
 
-int mouvement_vers_gauche(int *grille);
-
-int mouvement_vers_haut(int *grille);
-
-int mouvement_vers_bas(int *grille);
+/*tourne la grille jusqu'a ce que le coté vers lequel on veut faire le mouvement soit vers la droite,
+appelle la fonction faisant le mouvement vers la droite puis remet la grille dans son orientation initiale.
+*Entrée : un tableau, un entier
+*Sortie : un void*/
+void mouvement(int* grille,int id_mouvement);

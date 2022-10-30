@@ -14,17 +14,16 @@ int main()
 
 	affichage(grille) ;
 	
-	while(victoire(grille))
+	while (!victoire(grille))
 	{
 		char tmp[256] ;
         scanf("%s", tmp) ;
         char touche = tmp[0] ;
-        
-        if(touche == 'z') mouvement_vers_haut(grille) ;
-        if(touche == 'q') mouvement_vers_gauche(grille) ;
-        if(touche == 's') mouvement_vers_bas(grille) ;
-        if(touche == 'd') mouvement_vers_droite(grille) ;
-
+        //mouvements : 0=droite; 1=haut; 2=gauche; 3=bas
+        if(touche == 'z') mouvement(grille, 1) ;
+        if(touche == 'q') mouvement(grille, 2) ;
+        if(touche == 's') mouvement(grille, 3) ;
+        if(touche == 'd') mouvement(grille, 0) ;
         rajoute_2(grille);
 		affichage(grille) ;
 	}
