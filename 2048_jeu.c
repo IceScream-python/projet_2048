@@ -7,8 +7,9 @@ int main()
 {
 	srand(time(NULL)) ;
 
-	int grille[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0} ;
-	
+	int *grille = (int *) malloc(sizeof(int)*16);
+	init_grille(grille);
+
 	rajoute_2(grille);
 	rajoute_2(grille);
 
@@ -27,6 +28,6 @@ int main()
         rajoute_2(grille);
 		affichage(grille) ;
 	}
-
+	free(grille);
 	return 0 ;
 }

@@ -80,25 +80,11 @@ void affichage(int* tab)
 
 //Ci dessous les fonctions modifiant le tableau du jeu :
 
-void init_grille (int *grille)
+void init_grille(int *grille)
 {
-  int case1 = 0;
-  int case2 = 1;
   for (int indice = 0; indice < 16; indice++)
     {
-      if (indice == case1 || indice == case2)
-	{
-	  int nombre = rand () % 4;
-	  if (nombre <= 4)
-	    {
-	      nombre = 2;
-	    }
-	  grille[indice] = nombre;
-	}
-      else
-	{
-	  grille[indice] = 2;
-	}
+      grille[indice] = 0;
     }
 }
 
