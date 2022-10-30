@@ -1,89 +1,167 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h> 
+
 //temporaire
-void afficher(int* grille)
+void afficher (int *grille)
 {
-    for (int i=0;i<16;i++)
+  for (int indice = 0; indice < 16; indice++)
     {
-        printf("%d ",grille[i]);
-        if (i % 4 == 3)
+      printf ("%d ", grille[indice]);
+      if (indice % 4 == 3) 
+	{
+	  printf ("\n");
+	}
+    }
+  printf ("\n");
+}
+
+void init_grille (int *grille)//initialise la grille avec 2 tuiles valant 2 ou 4 et tout le reste vide
+{
+  int case1 = 0;
+  int case2 = 1;
+  for (int indice = 0; indice < 16; indice++)
+    {
+      if (indice == case1 || indice == case2)
+	{
+    //choisi entre 2 à 75% ou 4 à 25%
+	  int nombre = rand () % 4;  // nombre = 0,1,2 ou 3
+	  if (nombre < 3)
+	    {
+	      nombre = 2;
+	    }
+    else 
+    {
+      nombre = 4;
+    }
+	  grille[indice] = nombre;
+	}
+      else
+	{
+	  grille[indice] = 0;
+	}
+    }
+}
+
+void turn_grid(int* grille)//tourne la grille vers la droite (rotation)
+{
+  //on crée un tableau temporaire pour y copier les valeurs de la grille
+    int temp_grid[16];
+    for (int ind=0;ind<16;ind++)
+    {
+        temp_grid[ind] = grille[ind];
+    }
+    //effectue la rotation de la grille
+    int ind_case = 0; //pour comprendre comment ça marche je conseille de faire un schéma au brouillon bon courage ;)
+    for (int i=12;i<16;i++) 
+    {
+        for (int j = i; j>=(i%4); j-=4)
         {
-            printf("\n");
+            grille[ind_case] = temp_grid[j];
+            ind_case += 1;
         }
     }
-    printf("\n");
-}
-void fusion(int* grille,int indice1,int indice2)
-{
-    grille[indice1] = 2*grille[indice1];
-    grille[indice2] = 0;
 }
 
-void echange(int* grille,int indice1,int indice2)
-{
-    //met la valeur de l'indice2 dans indice1 puis met 0 à indice2
-    grille[indice1] = grille[indice2];
-    grille[indice2] = 0;
+void deplacement_droite(int* grille,int case1)
+//deplace chaque tuile de la ligne commençant par case1 d'autant de case qu'il y en a de libre à sa droite
+{    
+  for (int i = 0; i < 4; i++)
+	{
+	  for (int indice = case1 + 3; indice > case1; indice--)
+	    {
+	      if (grille[indice] == 0 && grille[indice - 1] != 0)
+            {
+                grille[indice] = grille[indice-1];
+                grille[indice] = 0;
+            }
+	    }
+	}
 }
 
-void mouvement_vers_droite(int* grille)
+void mouvement_vers_droite (int *grille)
+//effectue le déplacement et la fusion de toutes les tuiles vers la droite
 {
-    for (int case1=0;case1<16;case1 += 4)
+  for (int case1 = 0; case1 < 16; case1 += 4)
     {
+    //deplacement des tuiles non fusionnées
+    deplacement_droite(grille, case1);
     //fusion des tuiles de la ligne
-        for(int indice=case1+4;indice>case1+1;indice--)
+      for (int ind=case1+3;ind>case1;ind--)
+      {
+        if (grille[ind]==grille[ind-1])
         {
-            if (grille[indice] == grille[indice-1] && grille[indice]!=0)
-            {
-                fusion(grille,indice,indice-1);
-            }
-        }
+            grille[ind-1] = 2 * grille[ind];
+            grille[ind] = 0;
+        }  
+      }
     //deplacement des tuiles fusionnées
-        for(int indice=case1+4;indice>case1+1;indice--)
-        {
-            if (grille[indice]==0 && grille[indice-1]!=0)
-            {
-                echange(grille,indice,indice-1);
-            }
-        }
+    deplacement_droite(grille, case1);
     }
 }
 
-
-void init_grille(int* grille)
+void mouvement(int* grille,int id_mouvement) //id = 0:droite; 1:haut; 2:gauche; 3:bas
 {
-    int case1 = 0;
-    int case2 = 1;
-    for (int indice=0;indice<16;indice++)
-    {
-        if (indice==case1 || indice==case2)
-        {
-            int nombre = rand() % 4;
-            if (nombre <= 4)
-            {
-                nombre = 2;
-            } 
-            grille[indice] = nombre;
-        }
-        else
-        {
-           grille[indice] = 0; 
-        }
-    }
+  for (int i=0;i<id_mouvement;i++)//tourne la grille pour orienter vers la droite la direction du mouvement
+  {
+    turn_grid(grille);
+  }
+  mouvement_vers_droite(grille);//effectue le mouvement vers la droite
+  for (int i=0;i<4-id_mouvement;i++)//remet la grille dans la bonne orientation
+  {
+    turn_grid(grille);
+  }
 }
 
-int main(int argc, char *argv[])
+bool est_fini(int* grille)
 {
-    int* grille = (int *)malloc(sizeof(int)*16);
-    if (grille == NULL)
+	for (int ind=0;ind<16;ind++)
+	{
+		if (grille[ind]==0)
+		{
+			return false;
+		}
+	}
+	for (int ligne=0;ligne<4;ligne++)
+	{
+		for (int colonne=0;colonne<4;colonne++)
+		{
+			if (colonne != 3 && (grille[4*ligne + colonne]==grille[4*ligne + colonne+1]))
+			{
+				return false;
+			}
+			if (colonne != 0 && (grille[4*ligne + colonne]==grille[4*ligne + colonne-1]))
+			{
+				return false;
+			}
+			if (ligne != 3 && (grille[4*ligne + colonne]==grille[4*ligne + colonne+4]))
+			{
+				return false;
+			}
+			if (ligne != 0 && (grille[4*ligne + colonne]==grille[4*ligne + colonne-4]))
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+
+int main (int argc, char *argv[])
+{
+  int *grille = (int *) malloc (sizeof (int) * 16);
+  if (grille == NULL)
     {
-        exit(EXIT_FAILURE);
+      exit (EXIT_FAILURE);
     }
-    init_grille(grille);
-    afficher(grille);
-    mouvement_vers_droite(grille);
-    afficher(grille);
-    free(grille);
-    return 0;
+  init_grille (grille);//initialise la grille 
+  char buffer[10];
+  while (!(est_fini(grille)))
+  {
+
+  }
+  free (grille);
+  return 0;
 }
