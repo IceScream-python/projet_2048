@@ -1,0 +1,8 @@
+Pour éxécuter le code:
+-aller dans le terminal
+-se déplacer dans l'arborescence de fichier jusqu'au dossier du jeu
+-taper make
+-pour lancer le jeu taper ensuite 2048.out
+
+
+Ce qui marche:
