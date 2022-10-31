@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "fonction.h"
+#include <stdbool.h>
 
 int main()
 {

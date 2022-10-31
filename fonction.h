@@ -6,7 +6,7 @@ int victoire(int* tab);
 /* Vérifie si les deux grilles données en entrée contiennent les même éléments
 * Entrée : deux tableaux d'entiers
 * Sortie : true si les deux tableaux contiennent les même éléments, false sinon*/
-bool sont_egaux(int* grille, int* grille2)
+bool sont_egaux(int* grille, int* grille2);
 
 /*Compte le nombres de chiffres d'un nombre
  * Entrée : Un int
