@@ -14,8 +14,8 @@ int main()
 	rajoute_2(grille);
 
 	affichage(grille) ;
-	
-	while (!victoire(grille))
+	int fini = victoire(grille);
+	while (!fini)
 	{
 		//on copie la grille dans une grille temporaire
 		int grille_tmp[16];
@@ -60,6 +60,7 @@ int main()
 			rajoute_2(grille);
 		}
 		affichage(grille) ;
+		fini = victoire(grille);
 	}
 	printf("Partie Terminée\n");
 	free(grille);

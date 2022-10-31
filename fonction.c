@@ -51,7 +51,7 @@ int sont_egaux(int* grille, int* grille2)
 {
 	for (int indice=0;indice<16;indice++)
 	{
-		if (!grille[indice]==grille2[indice])
+		if (grille[indice]!=grille2[indice])
 		{
 			return 0;
 		}
@@ -139,12 +139,14 @@ void echange (int *grille, int indice1, int indice2)
 
 void turn_grid(int* grille)
 {
-    int temp_grid[16];
+	//on crée une grille temporaire contenant tout les éléments de la grille
+    int temp_grid[16]; 
     for (int ind=0;ind<16;ind++)
     {
         temp_grid[ind] = grille[ind];
     }
     int ind_case = 0; 
+	//on parcours les colonnes de la grille temporaire pour remplir la grille (pour faire la rotation)
     for (int i=12;i<16;i++)
     {
         for (int j = i;j>=(i%4);j-=4)
@@ -155,7 +157,7 @@ void turn_grid(int* grille)
     }
 }
 
-void deplacement_ligne_droite(int* grille,int case1)//deplace du plus possible chaque case vers la droite
+void deplacement_ligne_droite(int* grille,int case1)
 {    
     for (int i = 0; i < 4; i++)
 	{
@@ -190,12 +192,15 @@ void deplacement_fusion_droite(int *grille)
 
 void mouvement(int* grille,int id_mouvement) //id = 0:droite; 1:haut; 2:gauche; 3:bas
 {
-  for (int i=0;i<id_mouvement;i++)//tourne la grille pour orienter vers la droite la direction du mouvement
+//tourne la grille pour orienter vers la droite la direction du mouvement
+  for (int i=0;i<id_mouvement;i++)
   {
     turn_grid(grille);
   }
-  deplacement_fusion_droite(grille);//effectue le mouvement vers la droite
-  for (int i=0;i<4-id_mouvement;i++)//remet la grille dans la bonne orientation
+  //effectue le mouvement vers la droite
+  deplacement_fusion_droite(grille);
+  //remet la grille dans la bonne orientation
+  for (int i=0;i<4-id_mouvement;i++)
   {
     turn_grid(grille);
   }
