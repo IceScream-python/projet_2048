@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
+//test de guithub
 
 // fonction gérant les tests de fin de la partie et de modification de la grille
 int victoire(int* grille)
@@ -98,10 +99,10 @@ void affichage(int* tab)
 
 void init_grille(int *grille)
 {
-  for (int indice = 0; indice < 16; indice++)
-    {
-      grille[indice] = 0;
-    }
+	for (int indice = 0; indice < 16; indice++)
+	{
+		grille[indice] = 0;
+	}
 }
 
 void rajoute_2(int* tab)
@@ -115,93 +116,93 @@ void rajoute_2(int* tab)
 			emplacements_vides[acc] = i ;
 			acc++ ;
 		}
-    	}
-		if (acc!=0)//si il reste une case vide où ajouter une nouvelle tuile
-		{
-			int emplacement_du_2 = emplacements_vides[rand() % acc] ;
-			
-			if(rand() % 100 >= 75) tab[emplacement_du_2] = 2 ;
-			else tab[emplacement_du_2] = 4 ;
-		}
+	}
+	if (acc!=0)//si il reste une case vide où ajouter une nouvelle tuile
+	{
+		int emplacement_du_2 = emplacements_vides[rand() % acc] ;
+
+		if(rand() % 100 >= 75) tab[emplacement_du_2] = 2 ;
+		else tab[emplacement_du_2] = 4 ;
+	}
 }
 
 void fusion (int *grille, int indice1, int indice2)
 {
-  grille[indice1] = 2 * grille[indice1];
-  grille[indice2] = 0;
+	grille[indice1] = 2 * grille[indice1];
+	grille[indice2] = 0;
 }
 
 void echange (int *grille, int indice1, int indice2)
 {
-  grille[indice1] = grille[indice2];
-  grille[indice2] = 0;
+	grille[indice1] = grille[indice2];
+	grille[indice2] = 0;
 }
 
 void turn_grid(int* grille)
 {
 	//on crée une grille temporaire contenant tout les éléments de la grille
-    int temp_grid[16]; 
-    for (int ind=0;ind<16;ind++)
-    {
-        temp_grid[ind] = grille[ind];
-    }
-    int ind_case = 0; 
+	int temp_grid[16]; 
+	for (int ind=0;ind<16;ind++)
+	{
+		temp_grid[ind] = grille[ind];
+	}
+	int ind_case = 0; 
 	//on parcours les colonnes de la grille temporaire pour remplir la grille (pour faire la rotation)
-    for (int i=12;i<16;i++)
-    {
-        for (int j = i;j>=(i%4);j-=4)
-        {
-            grille[ind_case] = temp_grid[j];
-            ind_case += 1;
-        }
-    }
+	for (int i=12;i<16;i++)
+	{
+		for (int j = i;j>=(i%4);j-=4)
+		{
+			grille[ind_case] = temp_grid[j];
+			ind_case += 1;
+		}
+	}
 }
 
 void deplacement_ligne_droite(int* grille,int case1)
 {    
-    for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 	{
-	  for (int indice = case1 + 3; indice > case1; indice--)
-	    {
-	      if (grille[indice] == 0 && grille[indice - 1] != 0)
-            {
-                echange (grille, indice, indice - 1);
-            }
-	    }
+		for (int indice = case1 + 3; indice > case1; indice--)
+		{
+			if (grille[indice] == 0 && grille[indice - 1] != 0)
+			{
+				echange (grille, indice, indice - 1);
+			}
+		}
 	}
 }
 
 void deplacement_fusion_droite(int *grille)
 {
-  for (int case1 = 0; case1 < 16; case1 += 4)//pour chaque début de ligne
-    {
-    //deplacement des tuiles non fusionnées
-    deplacement_ligne_droite(grille, case1);
-    //fusion des tuiles de la ligne
-      for (int ind=case1+3;ind>case1;ind--)
-      {
-        if (grille[ind]==grille[ind-1])
-        {
-			fusion(grille,ind,ind-1);
-        }  
-      }
-    //deplacement des tuiles fusionnées
-    deplacement_ligne_droite(grille, case1);
-    }
+	for (int case1 = 0; case1 < 16; case1 += 4)//pour chaque début de ligne
+	{
+		//deplacement des tuiles non fusionnées
+		deplacement_ligne_droite(grille, case1);
+		//fusion des tuiles de la ligne
+		for (int ind=case1+3;ind>case1;ind--)
+		{
+			if (grille[ind]==grille[ind-1])
+			{
+				fusion(grille,ind,ind-1);
+			}  
+		}
+		//deplacement des tuiles fusionnées
+		deplacement_ligne_droite(grille, case1);
+	}
 }
 
 void mouvement(int* grille,int id_mouvement) //id = 0:droite; 1:haut; 2:gauche; 3:bas
 {
-//tourne la grille pour orienter vers la droite la direction du mouvement
-  for (int i=0;i<id_mouvement;i++)
-  {
-    turn_grid(grille);
-  }
-  //effectue le mouvement vers la droite
-  deplacement_fusion_droite(grille);
-  //remet la grille dans la bonne orientation
-  for (int i=0;i<4-id_mouvement;i++)
-  {
-    turn_grid(grille);
-  }
+	//tourne la grille pour orienter vers la droite la direction du mouvement
+	for (int i=0;i<id_mouvement;i++)
+	{
+		turn_grid(grille);
+	}
+	//effectue le mouvement vers la droite
+	deplacement_fusion_droite(grille);
+	//remet la grille dans la bonne orientation
+	for (int i=0;i<4-id_mouvement;i++)
+	{
+		turn_grid(grille);
+	}
 }
