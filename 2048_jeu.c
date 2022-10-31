@@ -17,6 +17,13 @@ int main()
 	
 	while (!victoire(grille))
 	{
+		//on copie la grille dans une grille temporaire
+		int grille_tmp[16];
+		for (int indice=0;indice<16;indice++)
+		{
+			grille_tmp[indice] = grille[indice];
+		} 
+
 		char tmp[256] ;
 		printf("\nQuel coup voulez vous jouer?\nd=droite; z=haut; q=gauche; s=bas;e=quitter\n");
         scanf("%s", tmp) ;
@@ -26,7 +33,7 @@ int main()
 		{
 			mouvement(grille, 1);
 		}
-        else if(touche == 'q') 
+		else if(touche == 'q') 
 		{
 			mouvement(grille, 2);
 		}
@@ -46,7 +53,11 @@ int main()
 		{
 			continue;
 		}
-        rajoute_2(grille);
+
+		if (!sont_egales(grille,grille_tmp)) //on n'ajoute un 2 que si un mouvement à été effectué
+		{
+			rajoute_2(grille);
+		}
 		affichage(grille) ;
 	}
 	printf("Partie Terminée\n");

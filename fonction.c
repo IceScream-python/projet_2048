@@ -156,6 +156,7 @@ void deplacement_droite(int* grille,int case1)//deplace du plus possible chaque 
 	    }
 	}
 }
+
 void mouvement_vers_droite (int *grille)
 {
   for (int case1 = 0; case1 < 16; case1 += 4)//pour chaque début de ligne
