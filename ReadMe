@@ -14,3 +14,4 @@ Ce qui marche:
 -les mouvements dans les 4 directions (testable en jouant)
 -le jeu finit si on ne peut plus jouer ou si on a gagné (en créant une tuile 2048) (testable en gagnant ou en perdant)
 
+Le programme a été testé sur MacOs et sur Windows
