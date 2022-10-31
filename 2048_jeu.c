@@ -18,7 +18,7 @@ int main()
 	while (!victoire(grille))
 	{
 		char tmp[256] ;
-		printf("\nQuel coup voulez vous jouer?\nd=droite; z=haut; q=gauche; s=bas\n")
+		printf("\nQuel coup voulez vous jouer?\nd=droite; z=haut; q=gauche; s=bas;e=quitter\n");
         scanf("%s", tmp) ;
         char touche = tmp[0] ;
         //mouvements : 0=droite; 1=haut; 2=gauche; 3=bas
@@ -38,10 +38,18 @@ int main()
 		{
 			mouvement(grille, 0);
 		} 
+		else if (touche == 'e')
+		{
+			break;
+		}
+		else
+		{
+			continue;
+		}
         rajoute_2(grille);
 		affichage(grille) ;
 	}
-	printf("Partie Terminée\n")
+	printf("Partie Terminée\n");
 	free(grille);
 	return 0 ;
 }

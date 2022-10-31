@@ -107,6 +107,18 @@ void rajoute_2(int* tab)
     	else tab[emplacement_du_2] = 2 ;
 }
 
+void fusion (int *grille, int indice1, int indice2)
+{
+  grille[indice1] = 2 * grille[indice1];
+  grille[indice2] = 0;
+}
+
+void echange (int *grille, int indice1, int indice2)
+{
+  grille[indice1] = grille[indice2];
+  grille[indice2] = 0;
+}
+
 void turn_grid(int* grille)
 {
     int temp_grid[16];
@@ -115,9 +127,9 @@ void turn_grid(int* grille)
         temp_grid[ind] = grille[ind];
     }
     int ind_case = 0; 
-	for (int i=12;i<16;i++) 
+    for (int i=12;i<16;i++)
     {
-        for (int j = i; j>=(i%4); j-=4)
+        for (int j = i;j>=(i%4);j-=4)
         {
             grille[ind_case] = temp_grid[j];
             ind_case += 1;
@@ -125,24 +137,22 @@ void turn_grid(int* grille)
     }
 }
 
-void deplacement_droite(int* grille,int case1)
+void deplacement_droite(int* grille,int case1)//deplace du plus possible chaque case vers la droite
 {    
-  for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
 	{
 	  for (int indice = case1 + 3; indice > case1; indice--)
 	    {
 	      if (grille[indice] == 0 && grille[indice - 1] != 0)
             {
-                grille[indice] = grille[indice-1];
-                grille[indice] = 0;
+                echange (grille, indice, indice - 1);
             }
 	    }
 	}
 }
-
 void mouvement_vers_droite (int *grille)
 {
-  for (int case1 = 0; case1 < 16; case1 += 4)
+  for (int case1 = 0; case1 < 16; case1 += 4)//pour chaque début de ligne
     {
     //deplacement des tuiles non fusionnées
     deplacement_droite(grille, case1);
@@ -151,8 +161,7 @@ void mouvement_vers_droite (int *grille)
       {
         if (grille[ind]==grille[ind-1])
         {
-            grille[ind-1] = 2 * grille[ind];
-            grille[ind] = 0;
+			fusion(grille,ind,ind-1);
         }  
       }
     //deplacement des tuiles fusionnées
