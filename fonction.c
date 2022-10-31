@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
-#include <stdbool.h>
 
 // fonction gérant les tests de fin de la partie et de modification de la grille
 int victoire(int* grille)
@@ -48,16 +47,16 @@ int victoire(int* grille)
 	return 1; // Si aucun de ces cas n'est vrai alors on a perdu
 }
 
-bool sont_egaux(int* grille, int* grille2)
+int sont_egaux(int* grille, int* grille2)
 {
 	for (int indice=0;indice<16;indice++)
 	{
 		if (!grille[indice]==grille2[indice])
 		{
-			return false;
+			return 0;
 		}
 	}
-	return true;
+	return 1;
 }
 
 //Ci dessous les fonctions pour l'affichage du jeu :
