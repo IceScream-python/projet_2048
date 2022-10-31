@@ -7,8 +7,6 @@ int main()
 {
 	srand(time(NULL)) ;
 
-	int *grille = (int *) malloc(sizeof(int)*16); //On utile malloc par ce que on est obligés mais ça sert à rien ici.
-	init_grille(grille);
 
 	rajoute_2(grille); //La grille initiale comporte deux cases non vides.
 	rajoute_2(grille);
@@ -17,7 +15,7 @@ int main()
 	int fini = victoire(grille);
 	while (!fini) //victoire vaut 1 en cas de défaite et 2 en cas de victoire, donc !victoire vaut true tant que la partie est en cours.
 	{
-		//Pour vérifié si il y a eu un mouvement, on copie la grille dans une grille temporaire et on regarde si la grille temporaire est égale a la grille de jeu apres l'action.
+		//Pour vérifié si il y a eu un mouvement, on copie la grille dans une grille temporaire et on regarde si la grille temporaire est égale a la grille de jeu apres l'action. Si il n'y a pas eu de mouvement, on ne rajoutera pas de nouveau 2 sur la grille.
 		int grille_tmp[16];
 		for (int indice=0;indice<16;indice++)
 		{
