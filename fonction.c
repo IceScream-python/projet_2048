@@ -2,12 +2,11 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
-//test de guithub
 
-// fonction gérant les tests de fin de la partie et de modification de la grille
+// fonction gérant les tests de fin de la partie et de modification de la grille, renvoi 1 pour une defaite, 2 pour une victoire, 0 sinon.
 int victoire(int* grille)
-{	//on commence par vérifier si il y a un 2048 dans la grille
-	for (int ind=0;ind<16;ind++)
+{
+	for (int ind=0;ind<16;ind++)	//on commence par vérifier si il y a un 2048 dans la grille
 	{
 		if (grille[ind]==2048)
 		{
@@ -71,7 +70,7 @@ int taille_int(int nb)
 	return 1 ;
 }
 
-void n_espaces(int n)
+void n_espaces(int n) //Affiche n espaces
 {
 	for(int i = 0 ; i<n ; i++)
 	{ 
@@ -79,7 +78,7 @@ void n_espaces(int n)
 	}
 }
 
-void affichage(int* tab)
+void affichage(int* tab) //Affichage de la grille
 {
 	printf("\n-----------------------\n") ;
 
@@ -87,7 +86,7 @@ void affichage(int* tab)
 	{
 		for(int i = 0 ; i<4 ; i++)
 		{
-			if(tab[(j*4)+i] != 0) printf("%d", tab[(j*4)+i]) ;
+			if(tab[(j*4)+i] != 0) printf("%d", tab[(j*4)+i]) ; //On affiche le nombre puis "4 - taille du nombre" espaces pour que toutes les lignes ai graphiquement la meme longueur.
 			n_espaces(4-taille_int(tab[(j*4)+i])) ;
 			printf("| ") ;
 		}
@@ -107,8 +106,8 @@ void init_grille(int *grille)
 
 void rajoute_2(int* tab)
 {
-	int emplacements_vides[16] ;
-	int acc = 0;
+	int emplacements_vides[16] ; //On crée un tableau qui contiendra les indices des cases de la grille de jeu valant 0. (qui sont au maximum de 16 du coup)
+	int acc = 0; //Le nombre de case valant 0. (donc la taille de emplacement_vides)
 	for(int i = 0 ; i<16 ; i++)
 	{
 		if(tab[i] == 0)
@@ -117,7 +116,7 @@ void rajoute_2(int* tab)
 			acc++ ;
 		}
 	}
-	if (acc!=0)//si il reste une case vide où ajouter une nouvelle tuile
+	if (acc!=0)//Les indices des cases vides sont ajouté dans le tableau crée préalablement, on tire ensuite au sort l'indice de la case qui sera mise à 2
 	{
 		int emplacement_du_2 = emplacements_vides[rand() % acc] ;
 
