@@ -3,6 +3,11 @@
  * Sortie : 2 si la grille comporte un 2048, 0 si au moins un coup est possible sinon 1*/
 int victoire(int* tab);
 
+/* Vérifie si les deux grilles données en entrée contiennent les même éléments
+* Entrée : deux tableaux d'entiers
+* Sortie : true si les deux tableaux contiennent les même éléments, false sinon*/
+bool sont_egaux(int* grille, int* grille2)
+
 /*Compte le nombres de chiffres d'un nombre
  * Entrée : Un int
  * Sortie : un int donnant le nombre de chiffre de l'entrée*/ 
@@ -44,12 +49,12 @@ void turn_grid(int* grille);
 /*déplace toute les tuiles de la ligne començant par case1 vers la droite d'antant de cases que de cases vides présentes à leur droite.
 *Entrée : Un tableau, un entier
 *Sortie : void */
-void deplacement_droite(int* grille,int case1);
+void deplacement_ligne_droite(int* grille,int case1);
 
 /*fait le déplacement et la fusion de toutes les tuiles de la grille vers la droite
 *Entrée : un tableau
 *Sortie : un void*/
-void mouvement_vers_droite (int *grille);
+void deplacement_fusion_droite (int *grille);
 
 /*tourne la grille jusqu'a ce que le coté vers lequel on veut faire le mouvement soit vers la droite,
 appelle la fonction faisant le mouvement vers la droite puis remet la grille dans son orientation initiale.

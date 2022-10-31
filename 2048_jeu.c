@@ -49,12 +49,13 @@ int main()
 		{
 			break;
 		}
-		else //si l'entrée n'est pas conforme 
+		else
 		{
+			printf("Valeur donnée non valide\n");
 			continue;
 		}
 
-		if (!sont_egales(grille,grille_tmp)) //on n'ajoute un 2 que si un mouvement à été effectué
+		if (!sont_egaux(grille,grille_tmp)) //on n'ajoute un 2 que si un mouvement à été effectué donc que la grille à été modifiée.
 		{
 			rajoute_2(grille);
 		}

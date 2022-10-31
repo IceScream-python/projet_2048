@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
+#include <stdbool.h>
 
+// fonction gérant les tests de fin de la partie et de modification de la grille
 int victoire(int* grille)
 {	//on commence par vérifier si il y a un 2048 dans la grille
 	for (int ind=0;ind<16;ind++)
@@ -46,6 +48,18 @@ int victoire(int* grille)
 	return 1; // Si aucun de ces cas n'est vrai alors on a perdu
 }
 
+bool sont_egaux(int* grille, int* grille2)
+{
+	for (int indice=0;indice<16;indice++)
+	{
+		if (!grille[indice]==grille2[indice])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 //Ci dessous les fonctions pour l'affichage du jeu :
 
 int taille_int(int nb)
@@ -55,7 +69,6 @@ int taille_int(int nb)
 	if(nb >= 10) return 2 ;
 	if(nb == 0) return 0 ;
 	return 1 ;
-	
 }
 
 void n_espaces(int n)
@@ -68,7 +81,6 @@ void n_espaces(int n)
 
 void affichage(int* tab)
 {
-	
 	printf("\n-----------------------\n") ;
 
 	for(int j = 0 ; j<4 ; j++)
@@ -81,7 +93,6 @@ void affichage(int* tab)
 		}
 		printf("\n-----------------------\n") ;
 	}
-	
 }
 
 //Ci dessous les fonctions modifiant le tableau du jeu :
@@ -106,11 +117,13 @@ void rajoute_2(int* tab)
 			acc++ ;
 		}
     	}
-    	
-    	int emplacement_du_2 = emplacements_vides[rand() % acc] ;
-    	
-    	if(rand() % 100 >= 75) tab[emplacement_du_2] = 2 ;
-    	else tab[emplacement_du_2] = 4 ;
+		if (acc!=0)//si il reste une case vide où ajouter une nouvelle tuile
+		{
+			int emplacement_du_2 = emplacements_vides[rand() % acc] ;
+			
+			if(rand() % 100 >= 75) tab[emplacement_du_2] = 2 ;
+			else tab[emplacement_du_2] = 4 ;
+		}
 }
 
 void fusion (int *grille, int indice1, int indice2)
@@ -143,7 +156,7 @@ void turn_grid(int* grille)
     }
 }
 
-void deplacement_droite(int* grille,int case1)//deplace du plus possible chaque case vers la droite
+void deplacement_ligne_droite(int* grille,int case1)//deplace du plus possible chaque case vers la droite
 {    
     for (int i = 0; i < 4; i++)
 	{
@@ -157,12 +170,12 @@ void deplacement_droite(int* grille,int case1)//deplace du plus possible chaque 
 	}
 }
 
-void mouvement_vers_droite (int *grille)
+void deplacement_fusion_droite(int *grille)
 {
   for (int case1 = 0; case1 < 16; case1 += 4)//pour chaque début de ligne
     {
     //deplacement des tuiles non fusionnées
-    deplacement_droite(grille, case1);
+    deplacement_ligne_droite(grille, case1);
     //fusion des tuiles de la ligne
       for (int ind=case1+3;ind>case1;ind--)
       {
@@ -172,7 +185,7 @@ void mouvement_vers_droite (int *grille)
         }  
       }
     //deplacement des tuiles fusionnées
-    deplacement_droite(grille, case1);
+    deplacement_ligne_droite(grille, case1);
     }
 }
 
@@ -182,7 +195,7 @@ void mouvement(int* grille,int id_mouvement) //id = 0:droite; 1:haut; 2:gauche; 
   {
     turn_grid(grille);
   }
-  mouvement_vers_droite(grille);//effectue le mouvement vers la droite
+  deplacement_fusion_droite(grille);//effectue le mouvement vers la droite
   for (int i=0;i<4-id_mouvement;i++)//remet la grille dans la bonne orientation
   {
     turn_grid(grille);
