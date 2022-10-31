@@ -4,6 +4,10 @@ PROJET 2048
 
 ________________________________
 
+Doc :
+Le main est séparé du reste.
+Les fonctions sont toutes commentées dans fonction.h
+
 Pour éxécuter le code:
 -aller dans le terminal
 -se déplacer dans l'arborescence de fichier jusqu'au dossier du jeu
