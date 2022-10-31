@@ -4,5 +4,13 @@ Pour éxécuter le code:
 -taper make
 -pour lancer le jeu taper ensuite 2048.out
 
+Pour jouer au jeu:
+-une fois le programme lancé rentrez les mouvements que vous voulez jouer
+le jeu se joue en z,q,s,d (z=haut; q=gauche; s=bas; d=droite)
+le jeu se finit quand aucun coup n'est plus possible ou si un 2048 est présent dans la grille
+pour quitter le jeu "en cours" vous pouvez entrer "e" (exit) dans la console à la place du zqsd
 
 Ce qui marche:
+-les mouvements dans les 4 directions (testable en jouant)
+-le jeu finit si on ne peut plus jouer ou si on a gagné (en créant une tuile 2048) (testable en gagnant ou en perdant)
+

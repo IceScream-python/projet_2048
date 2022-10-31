@@ -26,6 +26,16 @@ void init_grille (int *grille);
  * Sortie : void */
 void rajoute_2(int* tab);
 
+/* Effectue la fusion de deux tuiles (d'indice indice1 et indice2) de la grille
+* Entrée : un tableau, deux entiers
+* Sortie : un void*/
+void fusion (int *grille, int indice1, int indice2);
+
+/* déplace la tuile indice1 jusqu'à la tuile indice 2 (on suppose toutes les tuiles entre les 2 cases vides)
+* Entrée : un tableau, deux entiers
+* Sortie : un void*/
+void echange (int *grille, int indice1, int indice2);
+
 /*Renvoie la grille après avoir effectué une rotation dans le sens des aiguilles d'une montre
 *Entrée : Un tableau
 *Sortie : void */

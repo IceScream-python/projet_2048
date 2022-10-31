@@ -42,7 +42,7 @@ int main()
 		{
 			break;
 		}
-		else
+		else //si l'entrée n'est pas conforme 
 		{
 			continue;
 		}

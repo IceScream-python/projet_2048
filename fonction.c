@@ -1,17 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <math.h>
 
 int victoire(int* grille)
-{
-		for (int ind=0;ind<16;ind++)
+{	//on commence par vérifier si il y a un 2048 dans la grille
+	for (int ind=0;ind<16;ind++)
 	{
 		if (grille[ind]==2048)
 		{
 			return 2;
 		}
 	}
-	
+	//Si non on vérifie si il y a une case vide
 	for (int ind=0;ind<16;ind++)
 	{
 		if (grille[ind]==0)
@@ -19,6 +20,7 @@ int victoire(int* grille)
 			return 0;
 		}
 	}
+	//Si non on vérifie si on peut effectuer au moins une fusion dans au moins une direction
 	for (int ligne=0;ligne<4;ligne++)
 	{
 		for (int colonne=0;colonne<4;colonne++)
@@ -41,7 +43,7 @@ int victoire(int* grille)
 			}
 		}
 	}
-	return 1;
+	return 1; // Si aucun de ces cas n'est vrai alors on a perdu
 }
 
 //Ci dessous les fonctions pour l'affichage du jeu :
@@ -107,8 +109,8 @@ void rajoute_2(int* tab)
     	
     	int emplacement_du_2 = emplacements_vides[rand() % acc] ;
     	
-    	if(rand() % 100 >= 75) tab[emplacement_du_2] = 1024 ;
-    	else tab[emplacement_du_2] = 1024 ;
+    	if(rand() % 100 >= 75) tab[emplacement_du_2] = 2 ;
+    	else tab[emplacement_du_2] = 4 ;
 }
 
 void fusion (int *grille, int indice1, int indice2)
