@@ -4,15 +4,19 @@
 
 int victoire(int* grille)
 {
+		for (int ind=0;ind<16;ind++)
+	{
+		if (grille[ind]==2048)
+		{
+			return 2;
+		}
+	}
+	
 	for (int ind=0;ind<16;ind++)
 	{
 		if (grille[ind]==0)
 		{
 			return 0;
-		}
-		else if (grille[ind] == 2048)
-		{
-			return 2;
 		}
 	}
 	for (int ligne=0;ligne<4;ligne++)
@@ -103,8 +107,8 @@ void rajoute_2(int* tab)
     	
     	int emplacement_du_2 = emplacements_vides[rand() % acc] ;
     	
-    	if(rand() % 100 >= 75) tab[emplacement_du_2] = 4 ;
-    	else tab[emplacement_du_2] = 2 ;
+    	if(rand() % 100 >= 75) tab[emplacement_du_2] = 1024 ;
+    	else tab[emplacement_du_2] = 1024 ;
 }
 
 void fusion (int *grille, int indice1, int indice2)
