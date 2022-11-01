@@ -120,7 +120,7 @@ void rajoute_2(int* tab)
 	{
 		int emplacement_du_2 = emplacements_vides[rand() % acc] ;
 
-		if(rand() % 100 >= 75) tab[emplacement_du_2] = 2 ;
+		if(rand() % 100 <= 75) tab[emplacement_du_2] = 2 ;
 		else tab[emplacement_du_2] = 4 ;
 	}
 }
