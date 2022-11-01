@@ -6,6 +6,12 @@
 int main()
 {
 	srand(time(NULL)) ;
+	
+	int* grille = (int*)malloc(sizeof(int)*16) ;
+	for (int indice=0;indice<16;indice++)
+	{
+		grille[indice] = 0;
+	}
 
 
 	rajoute_2(grille); //La grille initiale comporte deux cases non vides.
